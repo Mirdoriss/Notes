@@ -1,0 +1,160 @@
+给定两个数组，写一个方法来计算它们的交集
+例如：给定 nums1 = [1, 2, 2, 1]，nums2 = [2, 2]，返回 [2, 2]。
+
+
+let nums1 = [1],nums2 = [1,1];
+const fn = (arr1,arr2) => {
+  // 哈希表
+  let map = arr1.reduce((prev,current) => (prev[current] = prev[current] ? ++prev[current] : 1,prev),{});
+  // 去重复值，并递减
+  return arr2.filter(item => (map[item] > 0,map[item]--));
+}
+// 复杂度O(m+n)
+let res = fn(nums1,nums2)
+创建
+请选择 option (new Option添加到frag)
+frag.appendChild(new Option("-请选择-"))；
+
+设置option的内容为当前的城市名
+frag.appendChild(new Option(c.name))
+3300737028
+zuotian9652
+
+ git reset --hard
+ git rebase origin
+git pull --rebase origin master
+dir
+git merge remote/master
+git am --show-current-patch
+git steash
+git remote add origin '.git'
+2019年世界工厂崩盘--东莞高埗裕元鞋厂周边店铺百分之八十都倒闭了  https://www.youtube.com/watch?v=EgioCEzjMGw  
+2019年中美贸易战后东莞倒闭的景象  https://www.youtube.com/watch?v=DjNhUZPWZ8k&list=WL&index=113  
+2019年东莞裕元鞋厂搬迁后，厂区一片荒凉  https://youtu.be/qZtQ4sIFiE4  
+2019年东莞厚街三屯聚富商业街，店铺全倒闭了  https://www.youtube.com/watch?v=1w162PIzAuE  
+2019年东莞厚街鞋业总部基地，二楼三楼全部空荡荡的  https://www.youtube.com/watch?v=ejCnm1e7TYc  
+2019年东莞厚街伟易达电子厂，上万人的大厂如今只剩下几个人  https://www.youtube.com/watch?v=61wqwypQfEQ&list=WL&index=120  
+2019年东莞厚街赤岭娱乐公园，大部分店铺倒闭关门了  https://www.youtube.com/watch?v=d9m0kGScqQI  
+2019年东莞厚街三屯梦幻巴黎俱乐部，如今门口堆满垃圾  https://www.youtube.com/watch?v=FrVKJ6Ghwd0  
+2019年东莞横枥倒闭的步行街、商场，变成二手货市场  https://www.youtube.com/watch?v=sbLvXY0vEoo&list=WL&index=128  
+2019年东莞东城石井同沙工业园，很多厂房都空了  https://www.youtube.com/watch?v=WZdAsn4PPFQ&list=WL&index=93  
+2019年东莞这有名的制造业城市现在变成空城  https://www.youtube.com/watch?v=JBbZbwWNyHc&list=WL&index=129&t=0s  
+2019年东莞樟木头大量工厂倒闭，几十万减到几千人https://www.youtube.com/watch?v=GbWp2u_YbIU&list=WL&index=91  
+2019年东莞烂尾楼，房地产泡沫，房子再多也不低价卖给屁民  https://www.youtube.com/watch?v=cOB7B4fBa6s&list=WL&index=119  
+2019年东莞冷清的商业街，如今生意难做，人走楼空附近店铺全已关门  https://www.youtube.com/watch?v=i_K3IQ1nyto&list=WL&index=119  
+2019年东莞去年活着的企业今年就倒了  https://www.youtube.com/watch?v=l31wNHg4eSY&list=WL&index=137&t=0s  
+2019年东莞工厂搬走后只剩下看门的保安  https://www.youtube.com/watch?v=mh_PeyyONYI&list=WL&index=136  
+2019年东莞虎门百丽鞋厂，曾经上万人的厂现在很冷清  https://www.youtube.com/watch?v=zj9tFIgoXFE  
+2019年东莞虎门曾经几千人的工厂，如今只剩寥寥数百人  https://www.youtube.com/watch?v=Usrgzn2JA1I&list=WL&index=137  
+2019年东莞长安振安科技园，大街上空空荡荡  https://www.youtube.com/watch?v=ppdAyyDOczE  
+2019年东莞松山湖创意生活城空无一人  https://www.youtube.com/watch?v=e__LbiWxpdA  
+2019年东莞世博天源数码港，顾客寥寥无几  https://www.youtube.com/watch?v=pTeuZ866acU&list=WL&index=132  
+2019年东莞某工业区大片厂房废弃  https://www.youtube.com/watch?v=cttwDehVgCg&list=WL&index=111&t=0s  
+2019年东莞常平五星级酒店新世纪被扫黄后废弃  https://www.youtube.com/watch?v=VRaNWPeOX0A&list=WL&index=113&t=0s  
+2019年东莞常平司马假日酒店，还没开张就倒闭了  https://www.youtube.com/watch?v=h06eO0gXvlM  
+2019年东莞上角东翔酒店，已风光不再  https://www.youtube.com/watch?v=lCHVuIgEsdo  
+2019年东莞现在很多酒店都拆了  https://www.youtube.com/watch?v=sIH0KJ_FrDc&list=WL&index=114  
+2019年东莞倒闭的金立手机万人生产基地  https://www.youtube.com/watch?v=813G-ckX49Q&list=WL&index=136  
+2019年东莞大厂万士达倒闭后，附近商面跟着全部倒闭  https://youtu.be/Iho6SgpAuoM  
+2019年台湾胜华科技集团，万士达厂倒闭后，当地这几年经济一落千丈  https://www.youtube.com/watch?v=9ePFx1rS7g4&list=WL&index=119  
+2019年东莞台达电子厂，宿舍楼都空了一大半  https://www.youtube.com/watch?v=0SdpJjtP3co&list=WL&index=112&t=0s  
+2019年东莞千万别墅沦为制衣厂仓库  https://www.youtube.com/watch?v=1lCxSOdmKuc&list=WL&index=135
+
+Vuex 管理状态的机制
+1）是什么Vuex是一个专为Vue。js应用程序开发的状态管理的vue的插件
+2）作用：集中3式管理多个组件共享的状态和从后台获取的数据
+
+vue.components读状态 state读取getters都读取
+方法$store.state,mapState()
+方法$store.getters,mapGetters()
+
+
+触发actions $store.dispatch() mapAction()
+mutations commit()
+
+
+
+
+
+
+1.h5新增的标签有哪些？为什么要加强语义化？
+2.为什么要清除浮动？怎么清除浮动？
+3.行内元素，块元素有哪些？它们有什么不同？
+4.有哪几种存储方式？有什么不同？
+5.程序题for（i=0;i<10;i++）{
+setTimeout(function(){
+consolelog(i),10)}1~10
+6.vue实现双向绑定的原理是什么？
+7.vue组件之间是怎么传值的？
+8.让两个按钮实现按点击次序执行请求
+9.怎么实现文本不自动换行？超出部分显示省略号
+10.vue的生命周期有哪些？它们有什么不同？
+11.怎么实现跨域？jsonp的原理是什么？
+单页应用理念
+组件管理
+数据流动
+数据状态
+数据绑定
+后端API调用
+路径处理
+编程语言
+
+测试工具
+单元测试
+集成测试
+编译
+React 面向网页显示,设计的,体积小入手块JSX前端展示 
+Angular之前有angularjs 2精简面向整体应用开发的 tj htmlcssls ts分离
+vue支持tj 常用的日常够用的
+工作量的开发不断提升组件,第三方插件
+可以共用
+数据流状态管理模板化数据绑定后端API的调用
+前端懂业务场景方案
+
+前端渲染框架 
+接口规范
+接口平台
+mock
+xxr
+前后端分离的理解
+凭借自己的技术
+能利用一些工具
+解决一些问题
+
+node作为中间层
+业务逻辑分离
+前端负责数据展示和交互，后端负责业务处理提供数据。前端通过调用后端API来获取需要的数据！
+
+前后端分离的项目，如何解决登录问题
+
+方案一：使用token
+前端把account和password，提交到服务端的登录api
+服务端验证正确后，生成一个token，并把token和userId，存在缓存里（推荐redis数据库），然后把token返回给前端。
+前端每次的请求头中带token，这样就能够轻松的实现
+
+方案二：使用cookie
+client发送username和password到server
+server验证成功后, 写cookie到client,然后返回ok的json, 其中cookie的key要存储在redis中,value就是用户信息, 并且要设置key的超时时间,如:60分钟
+client收到ok后, 进行相应的业务操作, 以后每次请求server都会自动带上cookie, 不用你写代码
+server端的filter(你肯定用filter来实现)中会每次验证传过来的cookie的key在redis中是否存在, 有就代表登录成功过可以操作, 没有就返回错误标识注意: 在登录成功后, 每次调用服务器接口时候, 都要为redis的key进行续期,如60分钟
+当redis的key超过60分钟, 自己会删除这个key, 那么再次请求server时, 就会收到需要登录的返回值
+当用户主动退出系统的时候, 也要在server中删除redis的key
+
+前后端分离项目的跨域及保持Session会话
+
+
+
+vue项目实践-前后端分离关于权限的思路
+前后端分离后权限的思路
+我的方案是：
+
+前端挂载所有路由
+通过 Api 接口获取用户权限标识(路由名称)
+在路由切换的时候进行权限校验
+至于页面的权限按钮则通过指令+自定义组件的形式封装成通用权限按钮，通过传入相应的标识判断是否现实按钮
+大体流程如下图所示
+
+
+
+
+

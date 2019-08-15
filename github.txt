@@ -1,0 +1,33 @@
+ls
+mkdir git_text
+cd  git_text
+ls _al
+ls
+vi code.text
+:wq
+创建版本
+git add code.txt编辑
+git commit -m'版本一'
+git reset --hard HEAD^ 回退版本一|| git reset --hard 320c73略写
+git reflog
+git reflog --head 320c73略写
+编辑工作区git checkout -- code.txt 丢弃修改
+对比文件
+git diff HEAD --对比文件
+---HEAD
++++工作区的内容
+
+git diff HEAD^HEAD --对比文件
+
+删除rm 文件
+git checkout -b dev
+git breach
+git log --pretty=oneline
+git breach -d dev
+解决分支冲突cat code.txt
+git log --graph  --pretty=oneline
+合并删除分支
+git merge --no-ff -m"禁用fast-forward" dev
+bug分支 新建分支修复
+git stash 保存
+git stash pop
