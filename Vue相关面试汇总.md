@@ -462,3 +462,644 @@ router是“路由实例”对象包括了路由的跳转方法，钩子函数�
 可读性下降，影响组件里的数据，根本无法看出是从哪来的；
 
 增加耦合性，大量上传派发，让耦合性大大增加，本来Vue用Component就是为了减少耦合，但现在和组件化的背道而驰。
+
+**3. this.$router 和this.$route有何区别？**
+
+- 1.$router为VueRouter实例，想要导航到不同URL，则使用$router.push方法
+- 2.$route为当前router跳转对象，里面可以获取name、path、query、params等
+
+###  [vue-router query和params传参(接收参数)](https://www.cnblogs.com/zhangruiqi/p/9412539.html)
+
+### 1.query方式传参和接收参数
+
+```
+传参: 
+this.$router.push({
+        path:'/xxx'
+        query:{
+          id:id
+        }
+      })
+  
+接收参数:
+this.$route.query.id
+```
+
+
+  2.params方式传参和接收参数
+
+```
+传参: 
+this.$router.push({
+        name:'xxx'
+        params:{
+          id:id
+        }
+      })
+  
+接收参数:
+this.$route.params.id
+```
+
+```
+//$router : 是路由操作对象，只写对象
+//$route : 路由信息对象，只读对象
+//操作 路由跳转
+this.$router.push({
+name:'hello',
+params:{
+name:'word',
+age:'11'
+}
+})
+//读取 路由参数接收
+this.name = this.$route.params.name;
+this.age = this.$route.params.age;
+```
+
+**注意:params传参，push里面只能是 name:'xxxx',不能是path:'/xxx',因为params只能用name来引入路由，如果这里写成了path，接收参数页面会是undefined！！！**
+
+### 另外，二者还有点区别，直白的来说query相当于get请求，页面跳转的时候，可以在地址栏看到请求参数，而params相当于post请求，参数不会再地址栏中显示
+
+**1·query传递参数**
+
+```
+  我看了很多人都说query传参要用path来引入，params传参要用name来引入，只是我测试了一下，query使用name来引入也可以传参，使用path也可以。如果有人知道原因可以告诉我一下，谢谢！
+//query传参，使用name跳转
+this.$router.push({
+    name:'second',
+    query: {
+        queryId:'20180822',
+        queryName: 'query'
+    }
+})
+
+
+//query传参，使用path跳转
+this.$router.push({
+    path:'second',
+    query: {
+        queryId:'20180822',
+        queryName: 'query'
+    }
+})
+
+
+//query传参接收
+this.queryName = this.$route.query.queryName;
+this.queryId = this.$route.query.queryId;
+```
+
+![img]()![img](https://oscimg.oschina.net/oscnet/d26bf3ef53ef3b06fe118a42eb6ed120892.jpg)
+
+最终不管是path引入还是name引入效果都一样如下图
+
+![img]()![img](https://oscimg.oschina.net/oscnet/3c4ee2f47fdd3bc45e96dd7a2e3d2b6351b.jpg)
+
+**2·params传递参数**
+
+- 使用params传参只能使用name进行引入
+
+```
+//params传参 使用name
+this.$router.push({
+  name:'second',
+  params: {
+    id:'20180822',
+     name: 'query'
+  }
+})
+
+//params接收参数
+this.id = this.$route.params.id ;
+this.name = this.$route.params.name ;
+
+//路由
+
+{
+path: '/second/:id/:name',
+name: 'second',
+component: () => import('@/view/second')
+}
+```
+
+![img](https://oscimg.oschina.net/oscnet/77fa90f59e7ed5f7f493a6f9457d6d0f2a3.jpg)
+
+效果如下图
+
+![img]()![img](https://oscimg.oschina.net/oscnet/53f56de8f69521684825319c2b8a192b301.jpg)
+
+需要注意的是：
+
+params是路由的一部分,必须要在路由后面添加参数名。query是拼接在url后面的参数，没有也没关系。
+
+**params一旦设置在路由，params就是路由的一部分**，如果这个路由有params传参，但是在跳转的时候没有传这个参数，会导致跳转失败或者页面会没有内容。
+
+```
+如果路由后面没有  /:id/:name效果如下图，地址栏没有参数
+```
+
+![img]()![img](https://oscimg.oschina.net/oscnet/7358f302c45ed65f33245e755615d1afec2.jpg)
+
+但是如果你刷新一下，就会发现页面失败，效果如下图
+
+![img]()![img](https://oscimg.oschina.net/oscnet/cac7ff06a0369dd0dd3df3c157f8915c141.jpg)
+
+因此我们不可能让用户不要刷新，所以我们必须在路由后面加上 /:id/:name
+
+- 使用path进行传参
+
+```
+//params传参 使用path
+this.$router.push({
+  path:'second',
+   params: {
+    id:'20180822',
+     name: 'query'
+  }
+})
+
+//params接收参数
+this.id = this.$route.params.id ;
+this.name = this.$route.params.name ;
+```
+
+效果如下图
+
+使用path传参什么效果都没有。
+
+![img]()![img](https://oscimg.oschina.net/oscnet/b4ca092edb74cb808939387b24091b2b4ef.jpg)
+
+**3.总结**
+
+1. 传参可以使用params和query两种方式。
+2. 使用params只能用name来引入路由，即push里面只能是 name:'xxxx',不能是path:'/xxx',因为params只能用name来引入路由，如果这里写成了path，接收参数页面会是undefined！！！。
+3. 使用quer传参y使用path来引入路由。
+4. params传参是路由的一部分,必须要在路由后面添加参数名。query是拼接在url后面的参数，没有也没关系。
+5. 二者还有点区别，直白的来说query相当于get请求，页面跳转的时候，可以在地址栏看到请求参数，而params相当于post请求，参数不会再地址栏中显示.
+
+### **注意:传参是this.$router,接收参数是this.$route,这里千万要看清了！！！**
+
+# [vue和微信小程序的区别、比较](https://segmentfault.com/a/1190000015684864)
+
+# 一、生命周期
+
+先贴两张图：
+
+#### vue生命周期
+
+![clipboard.png](https://segmentfault.com/img/bVVORa?w=1200&h=3039)
+
+#### 小程序生命周期
+
+![clipboard.png](https://segmentfault.com/img/bVbcfCK?w=662&h=1014)
+
+相比之下，`小程序`的钩子函数要简单得多。
+
+`vue`的钩子函数在跳转新页面时，钩子函数都会触发，但是`小程序`的钩子函数，页面不同的跳转方式，触发的钩子并不一样。
+
+- `onLoad`: 页面加载
+  一个页面只会调用一次，可以在 `onLoad` 中获取打开当前页面所调用的 `query` 参数。
+- `onShow`: 页面显示
+  每次打开页面都会调用一次。
+- `onReady`: 页面初次渲染完成
+  一个页面只会调用一次，代表页面已经准备妥当，可以和视图层进行交互。
+  对界面的设置如`wx.setNavigationBarTitle`请在`onReady`之后设置。详见生命周期
+- `onHide`: 页面隐藏
+  当`navigateTo`或底部tab切换时调用。
+- `onUnload`: 页面卸载
+  当`redirectTo`或`navigateBack`的时候调用。
+
+#### 数据请求
+
+在页面加载请求数据时，两者钩子的使用有些类似，`vue`一般会在`created`或者`mounted`中请求数据，而在`小程序`，会在`onLoad`或者`onShow`中请求数据。
+
+# 二、数据绑定
+
+`VUE`:vue动态绑定一个变量的值为元素的某个属性的时候，会在变量前面加上冒号：，例：
+
+```
+<img :src="imgSrc"/>
+```
+
+`小程序`：绑定某个变量的值为元素属性时，会用两个大括号括起来，如果不加括号，为被认为是字符串。例：
+
+```
+<image src="{{imgSrc}}"></image>
+```
+
+# 三、列表渲染
+
+直接贴代码，两者还是有些相似
+**vue：**
+
+```
+<ul id="example-1">
+  <li v-for="item in items">
+    {{ item.message }}
+  </li>
+</ul>
+
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+```
+
+**小程序：**
+
+```
+Page({
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+
+<text wx:for="{{items}}">{{item}}</text>
+```
+
+# 四、显示与隐藏元素
+
+`vue`中，使用`v-if` 和`v-show`控制元素的显示和隐藏
+
+`小程序`中，使用`wx-if`和`hidden`控制元素的显示和隐藏
+
+# 五、事件处理
+
+`vue`：使用`v-on:event`绑定事件，或者使用`@event`绑定事件,例如:
+
+```
+<button v-on:click="counter += 1">Add 1</button>
+<button v-on:click.stop="counter+=1">Add1</button>  //阻止事件冒泡
+```
+
+`小程序`中，全用`bindtap(bind+event)`，或者`catchtap(catch+event)`绑定事件,例如：
+
+```
+<button bindtap="noWork">明天不上班</button>
+<button catchtap="noWork">明天不上班</button>  //阻止事件冒泡
+```
+
+# 六、数据双向绑定
+
+#### 1.设置值
+
+在`vue`中,只需要再`表单`元素上加上`v-model`,然后再绑定`data`中对应的一个值，当表单元素内容发生变化时，`data`中对应的值也会相应改变，这是`vue`非常nice的一点。
+
+```
+<div id="app">
+    <input v-model="reason" placeholder="填写理由" class='reason'/>
+</div>
+
+new Vue({
+  el: '#app',
+  data: {
+   reason:''
+  }
+})
+```
+
+但是在`小程序`中，却没有这个功能。那怎么办呢？
+当表单内容发生变化时，会触发表单元素上绑定的方法，然后在该方法中，通过`this.setData({key:value})`来将表单上的值赋值给`data`中的对应值。
+下面是代码，可以感受一下:
+
+```
+<input bindinput="bindReason" placeholder="填写理由" class='reason' value='{{reason}}' name="reason" />
+
+Page({
+data:{
+    reason:''
+},
+bindReason(e) {
+    this.setData({
+      reason: e.detail.value
+    })
+  }
+})
+```
+
+当页面表单元素很多的时候，更改值就是一件体力活了。和`小程序`一比较，`vue`的`v-model`简直爽的不要不要的。
+
+#### 2.取值
+
+`vue`中，通过`this.reason`取值
+
+`小程序`中，通过`this.data.reason`取值
+
+![clipboard.png](https://segmentfault.com/img/bVbdXrK?w=242&h=180)
+
+# 七、绑定事件传参
+
+在`vue`中，绑定事件传参挺简单，只需要在触发事件的方法中，把需要传递的数据作为形参传入就可以了，例如：
+
+```
+<button @click="say('明天不上班')"></button>
+
+new Vue({
+  el: '#app',
+  methods:{
+    say(arg){
+    consloe.log(arg)
+    }
+  }
+})
+```
+
+在`小程序`中，不能直接在绑定事件的方法中传入参数，需要将参数作为属性值，绑定到元素上的`data-`属性上，然后在方法中，通过`e.currentTarget.dataset.*`的方式获取，从而完成参数的传递，很麻烦有没有...
+
+```
+<view class='tr' bindtap='toApprove' data-id="{{item.id}}"></view>
+Page({
+data:{
+    reason:''
+},
+toApprove(e) {
+    let id = e.currentTarget.dataset.id;
+  }
+})
+```
+
+![clipboard.png](https://segmentfault.com/img/bVbdXGC?w=340&h=327)
+
+# 八、父子组件通信
+
+### 1.子组件的使用
+
+在`vue`中，需要：
+
+1. 编写子组件
+2. 在需要使用的父组件中通过`import`引入
+3. 在`vue`的`components`中注册
+4. 在模板中使用
+
+```
+//子组件 bar.vue
+<template>
+  <div class="search-box">
+    <div @click="say" :title="title" class="icon-dismiss"></div>
+  </div>
+</template>
+<script>
+export default{
+props:{
+    title:{
+       type:String,
+       default:''
+      }
+    }
+},
+methods:{
+    say(){
+       console.log('明天不上班');
+       this.$emit('helloWorld')
+    }
+}
+</script>
+
+// 父组件 foo.vue
+<template>
+  <div class="container">
+    <bar :title="title" @helloWorld="helloWorld"></bar>
+  </div>
+</template>
+
+<script>
+import Bar from './bar.vue'
+export default{
+data(){
+    return{
+        title:"我是标题"
+    }
+},
+methods:{
+    helloWorld(){
+        console.log('我接收到子组件传递的事件了')
+    }
+},
+components:{
+    Bar
+}
+</script>
+```
+
+在`小程序`中，需要：
+
+1. 编写子组件
+
+2. 在子组件的`json`文件中，将该文件声明为组件
+
+   ```
+   {
+     "component": true
+   }
+   ```
+
+3. 在需要引入的父组件的`json`文件中，在`usingComponents`填写引入组件的组件名以及路径
+
+   ```
+   "usingComponents": {
+       "tab-bar": "../../components/tabBar/tabBar"
+     }
+   ```
+
+4. 在父组件中，直接引入即可
+
+   ```
+   <tab-bar currentpage="index"></tab-bar>
+   ```
+
+   具体代码:
+
+   ```
+   // 子组件
+   <!--components/tabBar/tabBar.wxml-->
+   <view class='tabbar-wrapper'>
+     <view class='left-bar {{currentpage==="index"?"active":""}}' bindtap='jumpToIndex'>
+       <text class='iconfont icon-shouye'></text>
+       <view>首页</view>
+     </view>
+     <view class='right-bar {{currentpage==="setting"?"active":""}}' bindtap='jumpToSetting'>
+       <text class='iconfont icon-shezhi'></text>
+       <view>设置</view>
+     </view>
+   </view>
+   ```
+
+### 2.父子组件间通信
+
+#### **在vue中**
+
+父组件向子组件传递数据，只需要在子组件通过`v-bind`传入一个值，在子组件中，通过`props`接收，即可完成数据的传递，示例:
+
+```
+// 父组件 foo.vue
+<template>
+  <div class="container">
+    <bar :title="title"></bar>
+  </div>
+</template>
+<script>
+import Bar from './bar.vue'
+export default{
+data(){
+    return{        
+        title:"我是标题"
+    }
+},
+components:{
+    Bar
+}
+</script>
+
+// 子组件bar.vue
+<template>
+  <div class="search-box">
+    <div :title="title" ></div>
+  </div>
+</template>
+<script>
+export default{
+props:{
+    title:{
+       type:String,
+       default:''
+      }
+    }
+}
+</script>
+```
+
+子组件和父组件通信可以通过`this.$emit`将方法和数据传递给父组件。
+
+#### **在小程序中**
+
+父组件向子组件通信和`vue`类似，但是`小程序`没有通过`v-bind`，而是直接将值赋值给一个变量，如下：
+
+```
+<tab-bar currentpage="index"></tab-bar>
+
+此处， “index”就是要向子组件传递的值
+```
+
+在子组件`properties`中，接收传递的值
+
+```
+properties: {
+    // 弹窗标题
+    currentpage: {            // 属性名
+      type: String,     // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
+      value: 'index'     // 属性初始值（可选），如果未指定则会根据类型选择一个
+    }
+  }
+```
+
+子组件向父组件通信和`vue`也很类似，代码如下:
+
+```
+//子组件中
+methods: {   
+    // 传递给父组件
+    cancelBut: function (e) {
+      var that = this;
+      var myEventDetail = { pickerShow: false, type: 'cancel' } // detail对象，提供给事件监听函数
+      this.triggerEvent('myevent', myEventDetail) //myevent自定义名称事件，父组件中使用
+    },
+}
+
+//父组件中
+<bar bind:myevent="toggleToast"></bar>
+
+// 获取子组件信息
+toggleToast(e){
+    console.log(e.detail)
+}
+```
+
+#### 如果父组件想要调用子组件的方法
+
+`vue`会给子组件添加一个`ref`属性，通过`this.$refs.ref的值`便可以获取到该子组件，然后便可以调用子组件中的任意方法，例如：
+
+```
+//子组件
+<bar ref="bar"></bar>
+
+//父组件
+this.$ref.bar.子组件的方法
+```
+
+`小程序`是给子组件添加`id`或者`class`，然后通过`this.selectComponent`找到子组件，然后再调用子组件的方法,示例：
+
+```
+//子组件
+<bar id="bar"></bar>
+
+// 父组件
+this.selectComponent('#id').syaHello()
+```
+
+#### 小程序父组件改变子组件样式
+
+1.父组件将style传入子组件
+2.父组件传入变量控制子组件样式
+3.在父组件样式中，在子组件类名前面加上父组件类名
+
+```
+<view class='share-button-container' bindtap='handleShareBtn'>
+   <share-button  product="{{goodProduct}}" type="1" back-color="#fff" fore-color="#9e292f" bind:error="on_error" />
+</view>
+
+.share-button-container .button--btn-navigator__hover{
+  background: #fff;
+}
+```
+
+小程序和vue在这点上太相似了，有木有。。。
+
+# [写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/1#) 
+
+key是给每一个vnode的唯一id,可以`依靠key`,更`准确`, 更`快`的拿到oldVnode中对应的vnode节点。
+
+### `v-for` with `v-if`优先级
+
+ `v-for` 的优先级比 `v-if` 更高，这意味着 `v-if` 将分别重复运行于每个 `v-for` 循环中。当你想为仅有的 一些 项渲染节点时，这种优先级的机制会十分有用。
+
+**永远不要把 v-if 和 v-for 同时用在同一个元素上。**
+
+# vue.js中computed计算属性和methods方法的区别
+
+计算属性是基于他们的依赖进行缓存的，只有在它的相关依赖改变时才会重新求值
+
+而methods方法是不产生缓存的，每次都会重新加载
+
+# 6. bindtap与catchtap
+
+1. `bindtap`与`catchtap`都是点击事件
+2. `bindtap`存在事件冒泡
+3. `catchtap`可以消除事件冒泡
+
+三：vue和jquey对比 
+
+jQuery是使用选择器（$）选取DOM对象，对其进行赋值、取值、事件绑定等操作，其实和原生的HTML的区别只在于可以更方便的选取和操作DOM对象，而数据和界面是在一起的。比如需要获取label标签的内容：`$("lable").val();`,它还是依赖DOM元素的值。 
+
+Vue则是通过Vue对象将数据和View完全分离开来了。对数据进行操作不再需要引用相应的DOM对象，可以说数据和View是分离的，他们通过Vue对象这个vm实现相互的绑定。这就是传说中的MVVM。
+
+四：控制显示隐藏，我们从中可以看出vue只需要控制属性isShow的值为true和false即可，而jquery则还是需要操作dom元素控制按钮的显示和隐藏
+
+五：vue适用的场景：复杂数据操作的后台页面，表单填写页面
+
+　   jquery适用的场景：比如说一些html5的动画页面，一些需要js来操作页面样式的页面
+
+　　然而二者也是可以结合起来一起使用的，vue侧重数据绑定，jquery侧重样式操作，动画效果等，则会更加高效率的完成业务需求
+
+# 微信小程序数据类型判断
+
+
+  数据类型的判断可以使用 constructor 属性。
